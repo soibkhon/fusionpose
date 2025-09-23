@@ -217,8 +217,15 @@ We would like to thank the authors of the following repositories for their previ
 
 
 ## Citation
+Hogenkamp, M., Stauffer, T., Lohmeyer, Q., Meboldt, M. (2026). 6D Object Pose Tracking for Orthopedic Surgical Training Using Visual-Inertial Sensor Fusion. In: Gee, J.C., et al. Medical Image Computing and Computer Assisted Intervention – MICCAI 2025. MICCAI 2025. Lecture Notes in Computer Science, vol 15968. Springer, Cham. https://doi.org/10.1007/978-3-032-05114-1_2
 
-
+## BibTeX
 ```
-To be added  
+@InProceedings{hogenkamp2025pose,
+  author="Hogenkamp, Maarten and Stauffer, Tobias and Lohmeyer, Quentin and Meboldt, Mirko",
+  title="6D Object Pose Tracking for Orthopedic Surgical Training Using Visual-Inertial Sensor Fusion",
+  booktitle="Medical Image Computing and Computer Assisted Intervention -- MICCAI 2025",
+  pages="13--23",
+  year="2026",
+}
 ```
