@@ -5,7 +5,11 @@ namespace fs = boost::filesystem;
 
 bool copyFile(const std::string &source, const std::string &destination) {
     try {
-        fs::copy_file(source, destination, fs::copy_options::overwrite_existing);
+        // Remove destination file if it exists (for compatibility with older Boost versions)
+        if (fs::exists(destination)) {
+            fs::remove(destination);
+        }
+        fs::copy_file(source, destination);
         return true;
     } catch (const fs::filesystem_error &e) {
         std::cerr << "Error: Could not copy file - " << e.what() << std::endl;

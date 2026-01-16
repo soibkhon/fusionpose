@@ -28,7 +28,11 @@ void keep_max_n_files(const std::string& file_name, int n = 4) {
             // Rename or copy the previous file to the next version
             std::string file_name_i_1 = parent_dir + "/" + file_name_strp + "_" + std::to_string(i + 1) + ext;
             if (fs::exists(file_name_i)) {
-                fs::copy(file_name_i, file_name_i_1, fs::copy_options::overwrite_existing);
+                // Remove destination file if it exists (for compatibility with older Boost versions)
+                if (fs::exists(file_name_i_1)) {
+                    fs::remove(file_name_i_1);
+                }
+                fs::copy_file(file_name_i, file_name_i_1);
             }
         }
     }
