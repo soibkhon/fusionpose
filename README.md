@@ -16,7 +16,7 @@ We present a robust, low-cost visual-inertial 6D object tracking system for accu
 Welcome to the official implementation of FusionPose! Get the pipeline running by following the instructions below step by step. Note that some instructions are stored in additional read me files which are linked from the main read me. If you encounter any issues during installation or usage that are not addressed in the read mes, feel free to open an issue on this GitHub repository, and we will try to help you as soon as possible!
 
 ## Setting up the ROS Environment
-This pipeline is implemented using two ROS Noetic packages. Due to our specific project requirements, the pipeline is developed and tested in Windows 11, and we provide the installation instructions for this specific operating system. However, we expect that it will work on Linux as well with only minor modifications. To facilitate deployment, we leverage [ROS inside of a Anaconda environment](https://robostack.github.io/GettingStarted.html).
+This pipeline is implemented using two ROS Noetic packages. The pipeline is developed and tested on both Windows 11 and Linux systems. We provide installation instructions for both operating systems below. To facilitate deployment, we leverage [ROS inside of a Anaconda environment](https://robostack.github.io/GettingStarted.html).
 
 
 ### Cloning Repository
@@ -32,22 +32,39 @@ git clone git@github.com:MountainCoot/fusionpose.git src
 
 ### Conda/Mamba Environment Installation
 
-Secondly, download a distribution of Anaconda, ideally [`miniforge`](https://github.com/conda-forge/miniforge/releases/) for Windows, and open the `miniforge` shell. Install the required packages:
+Secondly, download a distribution of Anaconda, ideally [`miniforge`](https://github.com/conda-forge/miniforge/releases/) for your operating system, and open the `miniforge` shell. Install the required packages:
 
+**For Windows:**
 ```bash
 cd catkin_ws/src
 mamba create -n fusionpose_env -f env/environment.yml
 ```
 
-This installs all necessary dependencies directly from the `YAML` file. Note that the specific versions of the packages are pinned to ensure compatibility. However, we have included a more flexible environment configuration in `env/environment_flexible.yml` which will be useful when migrating the repo to a different OS.
+**For Linux:**
+```bash
+cd catkin_ws/src
+mamba create -n fusionpose_env -f env/environment_flexible.yml
+```
 
-### Visual Studio C++ Build Tools
+The `environment.yml` file contains Windows-specific packages with pinned versions. For Linux systems, use the more flexible `environment_flexible.yml` configuration which contains cross-platform compatible dependencies.
 
-To ensure that `catkin_make` works, you must set up Visual Studio C++ build tools for Windows. For compatibility with our implementation, use Visual Studio 2019. Download using PowerShell:
+### Build Tools Setup
+
+#### Windows: Visual Studio C++ Build Tools
+
+To ensure that `catkin_make` works on Windows, you must set up Visual Studio C++ build tools. For compatibility with our implementation, use Visual Studio 2019. Download using PowerShell:
 ```bash
 Invoke-WebRequest "https://aka.ms/vs/16/release/vs_buildtools.exe" -OutFile vs_buildtools.exe
 ```
 and select "Visual C++ build tools" during the installation process.
+
+#### Linux: GCC/G++ Compiler
+
+On Linux, ensure you have the standard build tools installed:
+```bash
+sudo apt-get update
+sudo apt-get install build-essential cmake
+```
 
 ### Baumer Camera SDK
 
@@ -58,19 +75,26 @@ pip install env/wheels/baumer_neoapi-1.4.1-cp34.cp35.cp36.cp37.cp38.cp39.cp310.c
 ```
 
 ### Building the Workspace
-Before using the pipeline for the first time, you need to build the ROS workspace. For this, ensure first that the Visual Studio 2019 build tools are available in your current `cmd` session:
+Before using the pipeline for the first time, you need to build the ROS workspace.
+
+**For Windows:**
+Ensure that the Visual Studio 2019 build tools are available in your current `cmd` session:
 ```bash
 call "C:/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools/VC/Auxiliary/Build/vcvars64.bat"
 where cl && where nmake # should return two paths
 ```
-Then build the workspace. Please be patient as especially the [vicon2gt](vicon2gt) package may take a while to build. 
 
+**For Linux:**
+No additional setup is required, just make sure your conda environment is activated.
 
+Then build the workspace (same for both Windows and Linux):
 ```bash
 mamba activate fusionpose_env
 cd catkin_ws
 catkin_make
 ```
+
+Please be patient as especially the [vicon2gt](vicon2gt) package may take a while to build.
 
 ## Preparing the Tracking System for First Use
 In addition to setting up the environment and building your ROS workspace, some additional setup steps are required. If you wish to test the system with recorded data we provide, head directly to the [Simulate Without Hardware](#simulate-without-hardware) section and skip this section.
@@ -106,10 +130,18 @@ To use a new fiducial object, you must properly configure the [`oid_files` folde
 
 To configure a ROS terminal session, use the following commands:
 
+**For Windows:**
 ```bash
 mamba activate fusionpose_env
 cd catkin_ws
 call devel/setup.bat # Sourcing the workspace
+```
+
+**For Linux:**
+```bash
+mamba activate fusionpose_env
+cd catkin_ws
+source devel/setup.bash # Sourcing the workspace
 ```
 
 ### Running Nodes

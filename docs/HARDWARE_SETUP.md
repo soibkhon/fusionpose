@@ -1,6 +1,6 @@
 # Hardware Setup
 ## PC Requirements
-- Developed for Windows 11, likely portable to Linux with minor adjustments.
+- Compatible with Windows 11 and Linux systems
 - Fairly strong CPU required with many cores, no GPU required
 - BLE support for wireless communication
 
@@ -31,6 +31,10 @@
 The IMU software is provided in the [`imu_handler` directory](../fusionpose_pkg/src/files/rest/imu_handler). We recommend using the [PlatformIO extension for VS Code](https://platformio.org/install/ide?install=vscode) to flash the firmware onto the XIAO Sense. In the [main.cpp](../fusionpose_pkg/src/files/rest/imu_handler/src/main.cpp) file, you can configure the IMU DAQ settings. If using the default settings, you only need to change [the OID number](../fusionpose_pkg/src/files/rest/imu_handler/src/main.cpp#L71) in the script, which will define the OID number of your fiducial object.
 
 ### Pairing IMU to PC
-Note that you have to pair the IMU to your PC when connecting for the first time. Otherwise, the data acquisition will be lower than anticipated. [Read more here](https://support.microsoft.com/en-us/windows/pair-a-bluetooth-device-in-windows-2be7b51f-6ae9-b757-a3b9-95ee40c3e242).
+Note that you have to pair the IMU to your PC when connecting for the first time. Otherwise, the data acquisition will be lower than anticipated.
+
+**For Windows:** [Read more here](https://support.microsoft.com/en-us/windows/pair-a-bluetooth-device-in-windows-2be7b51f-6ae9-b757-a3b9-95ee40c3e242).
+
+**For Linux:** Use `bluetoothctl` or your system's Bluetooth manager to pair the device.
 
 [^1]: Due to license constraints, we unfortunately cannot provide the exact 3D model files used in our work. However, it should be quite straightforward to create your own models using common 3D design software with an inset for the XIAO Sense. Moreover, [other resources for this specific microcontroller can be found on GitHub and used as a starting point](https://github.com/Jcparkyn/dpoint/tree/main/print/export).

@@ -1,21 +1,31 @@
 #include "BagCalibrator.hpp"
+#include <boost/filesystem.hpp>
+
+namespace fs = boost::filesystem;
 
 bool copyFile(const std::string &source, const std::string &destination) {
-    // CopyFile returns 0 on failure
-    if (!CopyFile(source.c_str(), destination.c_str(), FALSE)) {
-        std::cerr << "Error: " << GetLastError() << " - Could not copy file." << std::endl;
+    try {
+        fs::copy_file(source, destination, fs::copy_options::overwrite_existing);
+        return true;
+    } catch (const fs::filesystem_error &e) {
+        std::cerr << "Error: Could not copy file - " << e.what() << std::endl;
         return false;
     }
-    return true;
 }
 
 bool removeFile(const std::string &filePath) {
-    // DeleteFile returns 0 on failure
-    if (!DeleteFile(filePath.c_str())) {
-        std::cerr << "Error: " << GetLastError() << " - Could not delete file." << std::endl;
+    try {
+        if (fs::exists(filePath)) {
+            fs::remove(filePath);
+            return true;
+        } else {
+            std::cerr << "Error: File does not exist - " << filePath << std::endl;
+            return false;
+        }
+    } catch (const fs::filesystem_error &e) {
+        std::cerr << "Error: Could not delete file - " << e.what() << std::endl;
         return false;
     }
-    return true;
 }
 
 BagCalibrator::BagCalibrator(ros::NodeHandle &nh) {

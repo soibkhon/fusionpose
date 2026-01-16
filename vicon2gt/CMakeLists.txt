@@ -53,13 +53,13 @@ endif()
 if(MSVC)
     # log that we are using MSVC
     add_compile_options(/FS)  # Use /FS to avoid .pdb conflicts
+    # Suppress specific MSVC warnings
+    add_compile_options(/wd4820 /wd4514 /wd4710 /wd5045)
 else()
     add_compile_options(-O3 -fsee -fomit-frame-pointer -fno-signed-zeros -fno-math-errno -funroll-loops -g3)
     # Enable debug flags (use if you want to debug in gdb)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g3 -Wall")
 endif()
-
-add_compile_options(/wd4820 /wd4514 /wd4710 /wd5045)
 
 # Include our header files
 include_directories(

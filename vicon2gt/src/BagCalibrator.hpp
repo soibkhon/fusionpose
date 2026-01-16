@@ -5,7 +5,6 @@
 #include <cmath>
 #include <memory>
 #include <vector>
-#include <windows.h>
 
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/TransformStamped.h>
