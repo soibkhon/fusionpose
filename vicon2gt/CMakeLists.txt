@@ -9,8 +9,8 @@ find_package(catkin REQUIRED COMPONENTS roscpp rosbag geometry_msgs sensor_msgs 
 # Include libraries
 find_package(Eigen3 REQUIRED) # built gtsam with cmake -DGTSAM_USE_SYSTEM_EIGEN=ON ..
 find_package(Boost REQUIRED COMPONENTS system filesystem thread date_time serialization regex timer)
-# find_package(GTSAM REQUIRED) # built gtsam with cmake -DGTSAM_USE_SYSTEM_EIGEN=ON ..
-# set(GTSAM_LIBRARIES gtsam)
+find_package(GTSAM REQUIRED) # built gtsam with cmake -DGTSAM_USE_SYSTEM_EIGEN=ON ..
+set(GTSAM_LIBRARIES gtsam)
 
 
 # service files

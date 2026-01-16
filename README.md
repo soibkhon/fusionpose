@@ -66,6 +66,17 @@ sudo apt-get update
 sudo apt-get install build-essential cmake
 ```
 
+### GTSAM Library (Required for Linux)
+
+**IMPORTANT:** On Linux systems, you must install the GTSAM (Georgia Tech Smoothing and Mapping) library version 4.2.0 before building the workspace. This library is required by the `vicon2gt` package for IMU-camera calibration.
+
+**Quick Installation (Ubuntu/Debian):**
+```bash
+sudo apt-get install -y libgtsam-dev libgtsam4
+```
+
+For alternative installation methods (conda, building from source), see the [GTSAM Installation Guide](docs/GTSAM_INSTALLATION.md).
+
 ### Baumer Camera SDK
 
 By default, you can use any camera that is supported using the `OpenCV` camera API. Optionally, if you aim to use Baumer cameras just like in our implementation, you must install the [Baumer Camera Explorer](https://www.baumer.com/int/en/product-overview/industrial-cameras-image-processing/software/baumer-camera-explorer/c/42504) and the `.whl` file located in the `wheels` directory:
